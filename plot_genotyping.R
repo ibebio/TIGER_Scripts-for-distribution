@@ -1,4 +1,3 @@
-
 args <- commandArgs(trailingOnly = TRUE)
 sample<-args[1]
 outfile<-args[2]
@@ -15,7 +14,7 @@ print(finalbreaksfile)
 pdf(file=outfile, width=18, height=10)
 
 
-d=read.table(finalfile)
+d=read.table(finalfile, sep='\t')
 #print(finalfile)
 #print(finalbreaksfile)
 #print ("done_reading")
@@ -34,11 +33,10 @@ chr_maxi<-max(b$V2)
 for (chr in c(1:chr_maxi)) {
 	
 	#plot genotyping with HMM
-	
 	plot(1,1,type="n",xlim=c(1,max(b$V4)), ylim=c(0,1), axes=F, xlab="", ylab="", main=paste("Sample ", sample, " -- chr", chr, sep=""))
 	rect(b$V3[b$V2==chr], 0.35, b$V4[b$V2==chr], 0.65, col=ifelse(b$V5[b$V2==chr]=="CC", "red", ifelse(b$V5[b$V2==chr]=="LL", "blue", "purple")))
 	
-	rect(r$V3[r$V2==chr], 0, r$V4[r$V2==chr], 0.3, col=ifelse(r$V5[r$V2==chr]=="CC", "red", ifelse(r$V5[r$V2==chr]=="LL", "blue", "purple")))
+	rect(r$V2[r$V1==chr], 0, r$V3[r$V1==chr], 0.3, col=ifelse(r$V4[r$V1==chr]=="CC", "red", ifelse(r$V4[r$V1==chr]=="LL", "blue", "purple")))
 	
 	
 	#plot genotyping data
