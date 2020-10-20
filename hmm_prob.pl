@@ -8,6 +8,7 @@ use Cwd;
 my % options=();
 use IO::Uncompress::Gunzip qw(gunzip $GunzipError) ;
 use IO::Handle;
+use File::Basename;
 
 my$opt_string='hs:p:o:a:c:';
 
@@ -76,7 +77,8 @@ sub main
 	}
 	else
 	{
-		system("R --slave --vanilla --args $sliding_window_file 1 < beta_mixture_model.R"."\n");
+    my $script_dir = dirname(__FILE__);
+		system("R --slave --vanilla --args $sliding_window_file 1 < $script_dir/beta_mixture_model.R"."\n");
 		
 		if(-e $allel_border_file)
 		{
